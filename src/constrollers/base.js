@@ -49,6 +49,25 @@ function BaseController(model) {
                 return res.status(404).json(err);
             })
     }
+
+    this.stock = (req, res) => {
+        this.service.listStock(req.params.id)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
+            })
+    }
+    this.putproduct = (req, res) => {
+        this.service.updateProducts(req.params.id, req.body.product)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(422).json(err);
+            })
+    }
 }
 
 module.exports = BaseController
