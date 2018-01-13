@@ -60,12 +60,21 @@ function BaseController(model) {
             })
     }
     this.putproduct = (req, res) => {
-        this.service.updateProducts(req.params.id, req.body.product)
+        this.service.updateProducts(req.params.id, req.body.products)
             .then((result) => {
                 return res.json(result);
             })
             .catch((err) => {
                 return res.status(422).json(err);
+            })
+    }
+    this.deleteProduct = (req, res) => {
+        this.service.deleteProducts(req.params.id, req.body.products)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
             })
     }
 }

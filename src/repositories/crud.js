@@ -63,6 +63,18 @@ CrudService.prototype.updateProducts = function(id, data) {
 
 }
 
+CrudService.prototype.deleteProducts = function(id, data) {
+    return new Promise((resolve) => {
+        this.model.findById(id).then(function(record) {
+            record.products.remove(data)
+            record.save().then(function(res) {
+                return resolve({ data: res })
+            })
+        })
+    })
+
+}
+
 CrudService.prototype.delete = function(id) {
     return new Promise((resolve) => {
         this.model.findByIdAndRemove(id, (err, result) => {
