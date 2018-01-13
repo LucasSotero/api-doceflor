@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function(app) {
     let controller = require('../constrollers/sales')()
 
     app.get('/sales', controller.list)
@@ -6,6 +6,7 @@ module.exports = function (app) {
     app.put('/sales/:id', controller.put)
     app.get('/sales/:id', controller.view)
     app.delete('/sales/:id', controller.delete)
+    app.get('/sales/products/:id', controller.stock)
+    app.put('/sales/products/:id', controller.putproduct)
 
 }
-
