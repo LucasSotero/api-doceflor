@@ -69,7 +69,7 @@ function BaseController(model) {
             })
     }
     this.deleteProduct = (req, res) => {
-        this.service.deleteProducts(req.params.id, req.body.products)
+        this.service.deleteProducts(req.params.id, req.body)
             .then((result) => {
                 return res.json(result);
             })

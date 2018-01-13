@@ -42,12 +42,24 @@ CrudService.prototype.insert = function(data) {
 
 CrudService.prototype.update = function(id, data) {
     return new Promise((resolve) => {
-        this.model.findByIdAndUpdate(id, { $set: data }, (err, result) => {
-            if (err) {
-                return reject({ err: err });
-            }
-            return resolve({ data: result })
+        this.model.update(id, { $set: data }, (err, result) => {
+            if (err) {return reject({ err: err })}
+            return this.model.find({}).exec((err, result) => {
+                return resolve({ data: result })
+            })
         });
+    });
+}
+
+CrudService.prototype.deleteProducts = function(id, data) {
+    return new Promise((resolve) => {
+        this.model.update({"_id": id}, { $pull: data }, (err, result) => {
+            if (err) {return reject({ err: err })}
+            return this.model.findById(id).exec((err, result) => {
+                return resolve({ data: result })
+            })
+        });          
+
     });
 }
 
@@ -63,25 +75,26 @@ CrudService.prototype.updateProducts = function(id, data) {
 
 }
 
-CrudService.prototype.deleteProducts = function(id, data) {
-    return new Promise((resolve) => {
-        this.model.findById(id).then(function(record) {
-            record.products.remove(data)
-            record.save().then(function(res) {
-                return resolve({ data: res })
-            })
-        })
-    })
 
-}
+// CrudService.prototype.deleteProducts = function(id, data) {
+//     return new Promise((resolve) => {
+//         this.model.findById(id).then(function(record) {
+//             record.products.pull(data)
+//             record.save().then(function(res) {
+//                 return resolve({ data: res })
+//             })
+//         })
+//     })
+
+// }
 
 CrudService.prototype.delete = function(id) {
     return new Promise((resolve) => {
         this.model.findByIdAndRemove(id, (err, result) => {
-            if (err) {
-                return reject({ err: err });
-            }
-            return resolve({ data: [] })
+            if (err) {return reject({ err: err }) }
+            return this.model.find({}).exec((err, result) => {
+                return resolve({ data: result })
+            })
         });
     });
 }
