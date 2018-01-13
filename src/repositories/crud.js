@@ -4,8 +4,7 @@ function CrudService(model) {
 
 CrudService.prototype.list = function() {
     return new Promise((resolve) => {
-        this.model.find({}).populate('products').exec((err, result) => {
-            console.log(result)
+        this.model.find({}).exec((err, result) => {
             return resolve({ data: result })
         })
     });
