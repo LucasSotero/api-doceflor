@@ -30,6 +30,17 @@ function BaseController(model) {
             })
     }
 
+    
+    this.getOne = (req, res) => {
+        this.service.getOne(req.params.search)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
+            })
+    }
+
     this.view = (req, res) => {
         this.service.get(req.params.id)
             .then((result) => {
@@ -50,7 +61,7 @@ function BaseController(model) {
             })
     }
 
-    this.stock = (req, res) => {
+    this.getDetails = (req, res) => {
         this.service.listStock(req.params.id)
             .then((result) => {
                 return res.json(result);
@@ -59,8 +70,8 @@ function BaseController(model) {
                 return res.status(404).json(err);
             })
     }
-    this.putproduct = (req, res) => {
-        this.service.updateProducts(req.params.id, req.body.products)
+    this.postDetails = (req, res) => {
+        this.service.updateProducts(req.params.id, req.body)
             .then((result) => {
                 return res.json(result);
             })
@@ -68,7 +79,7 @@ function BaseController(model) {
                 return res.status(422).json(err);
             })
     }
-    this.deleteProduct = (req, res) => {
+    this.putDetails = (req, res) => {
         this.service.deleteProducts(req.params.id, req.body)
             .then((result) => {
                 return res.json(result);

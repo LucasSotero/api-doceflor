@@ -10,9 +10,12 @@ let mongoose = require('mongoose')
         history: [{
             io: Boolean,
             amount: Number,
-            input: Number,
-            output: Number,
-            date: Date
+            value: Number,
+            date: {
+                type: Date,
+                default: Date.now,
+                required: true
+            }
         }]
     })
 
