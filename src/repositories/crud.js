@@ -12,8 +12,8 @@ CrudService.prototype.list = function() {
 
 CrudService.prototype.getOne = function(data) {
     return new Promise((resolve) => {
-        this.model.findOne({barCode: data}, (err, result) => {
-            if (err) {return reject({ err: err })}
+        this.model.findOne({ barCode: data }, (err, result) => {
+            if (err) { return reject({ err: err }) }
             return resolve({ data: result })
         });
     });
@@ -22,7 +22,7 @@ CrudService.prototype.getOne = function(data) {
 CrudService.prototype.get = function(id) {
     return new Promise((resolve) => {
         this.model.findById(id, (err, result) => {
-            if (err) {return reject({ err: err })}
+            if (err) { return reject({ err: err }) }
             return resolve({ data: result })
         });
     });
@@ -31,7 +31,7 @@ CrudService.prototype.get = function(id) {
 CrudService.prototype.listStock = function(id) {
     return new Promise((resolve) => {
         this.model.findById(id, (err, result) => {
-            if (err) {return reject({ err: err })}
+            if (err) { return reject({ err: err }) }
             return resolve({ data: result })
         });
     });
@@ -40,7 +40,7 @@ CrudService.prototype.listStock = function(id) {
 CrudService.prototype.insert = function(data) {
     return new Promise((resolve) => {
         this.model.create(data, (err, result) => {
-            if (err) {return ({ err: err })}
+            if (err) { return ({ err: err }) }
             return this.model.find({}).exec((err, result) => {
                 return resolve({ data: result })
             })
@@ -50,8 +50,8 @@ CrudService.prototype.insert = function(data) {
 
 CrudService.prototype.update = function(id, data) {
     return new Promise((resolve) => {
-        this.model.update({"_id": id}, { $set: data }, (err, result) => {
-            if (err) {return ({ err: err })}
+        this.model.update({ "_id": id }, { $set: data }, (err, result) => {
+            if (err) { return ({ err: err }) }
             return this.model.find({}).exec((err, result) => {
                 return resolve({ data: result })
             })
@@ -61,23 +61,23 @@ CrudService.prototype.update = function(id, data) {
 
 CrudService.prototype.deleteProducts = function(id, data) {
     return new Promise((resolve) => {
-        this.model.update({"_id": id}, { $pull: data }, (err, result) => {
-            if (err) {return ({ err: err })}
+        this.model.update({ "_id": id }, { $pull: data }, (err, result) => {
+            if (err) { return ({ err: err }) }
             return this.model.findById(id).exec((err, result) => {
                 return resolve({ data: result })
             })
-        });        
+        });
     });
 }
 
 CrudService.prototype.updateProducts = function(id, data) {
     return new Promise((resolve) => {
-        this.model.update({"_id": id}, { $push: data }, (err, result) => {
-            if (err) {return ({ err: err })}
+        this.model.update({ "_id": id }, { $push: data }, (err, result) => {
+            if (err) { return ({ err: err }) }
             return this.model.findById(id).exec((err, result) => {
                 return resolve({ data: result })
             })
-        });          
+        });
 
     });
 }
@@ -110,7 +110,7 @@ CrudService.prototype.updateProducts = function(id, data) {
 CrudService.prototype.delete = function(id) {
     return new Promise((resolve) => {
         this.model.findByIdAndRemove(id, (err, result) => {
-            if (err) {return ({ err: err }) }
+            if (err) { return ({ err: err }) }
             return this.model.find({}).exec((err, result) => {
                 return resolve({ data: result })
             })

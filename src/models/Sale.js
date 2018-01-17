@@ -14,7 +14,7 @@ let saleSchema = new mongoose.Schema({
     }],
     pays: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'transaction'
+        ref: 'payment'
     }]
 })
 
