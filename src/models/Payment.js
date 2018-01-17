@@ -1,8 +1,13 @@
 let mongoose = require('mongoose')
 
 let paymentSchema = new mongoose.Schema({
-   name: String
+    Date: {
+        type: Date,
+        default: Date.now,
+        require: true
+    },
+    code: String,
+    confirmed: Boolean
 })
 
 module.exports = mongoose.model('payment', paymentSchema)
-
