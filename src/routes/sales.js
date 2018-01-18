@@ -6,8 +6,9 @@ module.exports = function(app) {
     app.put('/sales/:id', controller.put)
     app.get('/sales/:id', controller.view)
     app.delete('/sales/:id', controller.delete)
-    // app.get('/sales/products/:id', controller.stock)
-    // app.post('/sales/products/:id', controller.putproduct)
-    // app.put('/sales/products/:id', controller.deleteProduct)
+    app.get('/sales/search/:search', controller.getAll)
+        // app.get('/sales/products/:id', controller.stock)
+        // app.post('/sales/products/:id', controller.putproduct)
+        // app.put('/sales/products/:id', controller.deleteProduct)
 
 }

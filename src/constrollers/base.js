@@ -30,9 +30,19 @@ function BaseController(model) {
             })
     }
 
-    
+
     this.getOne = (req, res) => {
         this.service.getOne(req.params.search)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
+            })
+    }
+
+    this.getAll = (req, res) => {
+        this.service.getAll(req.params.search)
             .then((result) => {
                 return res.json(result);
             })

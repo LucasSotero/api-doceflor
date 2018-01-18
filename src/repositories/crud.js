@@ -19,6 +19,16 @@ CrudService.prototype.getOne = function(data) {
     });
 }
 
+CrudService.prototype.getAll = function(data) {
+    return new Promise((resolve) => {
+        this.model.find({ client: data }, (err, result) => {
+            if (err) { return reject({ err: err }) }
+            return resolve({ data: result })
+        });
+    });
+}
+
+
 CrudService.prototype.get = function(id) {
     return new Promise((resolve) => {
         this.model.findById(id, (err, result) => {
