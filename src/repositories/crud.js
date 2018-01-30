@@ -128,4 +128,23 @@ CrudService.prototype.delete = function(id) {
     });
 }
 
+CrudService.prototype.saleReport = function(start, end) {
+    start = '10/10/2010',
+        end = '10/10/2022'
+    return new Promise((resolve) => {
+        this.model.aggregate([{
+            $group: {
+                _id: '$district',
+                teste: { $sum: 1 }
+            }
+        }], function(err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(res.json({ data: result }))
+            }
+        })
+    })
+}
+
 module.exports = CrudService;

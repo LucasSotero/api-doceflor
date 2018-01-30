@@ -2,6 +2,7 @@ module.exports = function(app) {
     let controller = require('../constrollers/sales')()
 
     app.get('/sales', controller.list)
+    app.get('/sales/report/:start/:end', controller.report)
     app.post('/sales', controller.post)
     app.put('/sales/:id', controller.put)
     app.get('/sales/:id', controller.view)

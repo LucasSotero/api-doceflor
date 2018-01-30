@@ -70,7 +70,15 @@ function BaseController(model) {
                 return res.status(404).json(err);
             })
     }
-
+    this.report = (req, res) => {
+        this.service.saleReport(req.params.start, req.params.end)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
+            })
+    }
     this.getDetails = (req, res) => {
         this.service.listStock(req.params.id)
             .then((result) => {
