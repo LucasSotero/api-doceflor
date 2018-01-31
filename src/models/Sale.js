@@ -3,7 +3,10 @@ let mongoose = require('mongoose')
 let saleSchema = new mongoose.Schema({
     code: String,
     discount: Number,
-    date: Date,
+    date: {
+        type: Date,
+        default: Date.now
+    },
     client: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'client'
