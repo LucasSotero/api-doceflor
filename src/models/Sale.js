@@ -16,8 +16,14 @@ let saleSchema = new mongoose.Schema({
         ref: 'product'
     }],
     pays: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'payment'
+        Date: {
+            type: Date,
+            default: Date.now,
+            require: true
+        },
+        code: String,
+        confirmed: Boolean,
+        method: String
     }]
 })
 

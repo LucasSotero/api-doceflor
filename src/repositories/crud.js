@@ -128,18 +128,30 @@ CrudService.prototype.delete = function(id) {
     });
 }
 
-CrudService.prototype.saleReport = function(start, end) {
-    start = '12010-10-10',
-        end = '2022-10-10'
+//{ date: '$date', pay: '$pays', client: '$clients', product: '$products' }
+
+CrudService.prototype.saleReport = function(data) {
     return new Promise((resolve) => {
-        this.model.aggregate([{
-            $match: { date: { $gte: new Date("2017-01-31T23:40:02.365Z"), $lt: new Date("2019-01-31T23:40:02.365Z") } },
-            $group: {
-                _id: { date: '$date', pay: '$pays', client: '$client', product: '$products' },
-                vendas: { $push: '$code' },
-                teste: { $sum: 1 }
-            }
-        }], function(err, result) {
+        this.model.aggregate(
+            [
+                {
+                    $match:
+                        {
+                            date: {
+                                $gte: data.start,
+                                $lt: data.end
+                            },
+                            method: {$in: data.methods},
+                            client: {$in: data.clients},
+                            product: {$in: data.products}   
+                        }                        
+                },
+                {
+                    $group: {
+                        _id: data.paramns
+                    }
+                }
+            ], function(err, result) {
             if (err) { return reject({ err: err }) }
             return resolve({ data: result })
         })

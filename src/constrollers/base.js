@@ -71,7 +71,7 @@ function BaseController(model) {
             })
     }
     this.report = (req, res) => {
-        this.service.saleReport(req.params.start, req.params.end)
+        this.service.saleReport(req.body)
             .then((result) => {
                 return res.json(result);
             })
