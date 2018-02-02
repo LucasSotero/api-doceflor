@@ -7,7 +7,8 @@ let paymentSchema = new mongoose.Schema({
         require: true
     },
     code: String,
-    confirmed: Boolean
+    confirmed: Boolean,
+    method: String
 })
 
 module.exports = mongoose.model('payment', paymentSchema)
