@@ -133,9 +133,9 @@ CrudService.prototype.saleReport = function(start, end) {
         end = '2022-10-10'
     return new Promise((resolve) => {
         this.model.aggregate([{
-            $match: { date: { $gte: new Date("2017-01-31T23:40:02.365Z"), $lt: new Date("2019-01-31T23:40:02.365Z") } },
+            $match: { '$code': "venda 001" },
             $group: {
-                _id: { date: '$date', pay: '$pays', client: '$client', product: '$products' },
+                _id: { date: '$date' },
                 vendas: { $push: '$code' },
                 teste: { $sum: 1 }
             }
