@@ -131,27 +131,31 @@ CrudService.prototype.delete = function(id) {
 //{ date: '$date', pay: '$pays', client: '$clients', product: '$products' }
 
 CrudService.prototype.saleReport = function(data) {
+
     return new Promise((resolve) => {
+        console.log(new Date("03/10/2015"))
         this.model.aggregate(
             [{
                     $match: {
                         date: {
-                            $gte: data.start,
-                            $lt: data.end
+                            $gte: new Date(data.start),
+                            $lt: new Date(data.end)
                         },
-                        method: { $in: data.methods },
+                        'pays.method': { $in: data.methods },
                         client: { $in: data.clients },
-                        product: { $in: data.products }
+                        products: { $in: data.products }
                     }
                 },
                 {
                     $group: {
-                        _id: data.paramns
+                        _id: { date: '$date', pay: '$pays', client: '$clients', product: '$products' }
                     }
                 }
             ],
             function(err, result) {
-                if (err) { return reject({ err: err }) }
+                if (err) {
+                    return reject({ err: err })
+                }
                 return resolve({ data: result })
             })
     })
