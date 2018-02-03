@@ -1,3 +1,4 @@
+let mongoose = require('mongoose')
 function CrudService(model) {
     this.model = model;
 }
@@ -131,9 +132,8 @@ CrudService.prototype.delete = function(id) {
 //{ date: '$date', pay: '$pays', client: '$clients', product: '$products' }
 
 CrudService.prototype.saleReport = function(data) {
-
+    console.log(data)
     return new Promise((resolve) => {
-        console.log(new Date("03/10/2015"))
         this.model.aggregate(
             [{
                     $match: {
@@ -141,14 +141,15 @@ CrudService.prototype.saleReport = function(data) {
                             $gte: new Date(data.start),
                             $lt: new Date(data.end)
                         },
-                        'pays.method': { $in: data.methods },
-                        client: { $in: data.clients },
-                        products: { $in: data.products }
+                        'pays.method': { $eq: data.methods },
+                        client: { $eq: mongoose.Types.ObjectId(data.clients) },
+                        products: { $eq: mongoose.Types.ObjectId(data.products) }
                     }
                 },
                 {
                     $group: {
-                        _id: { date: '$date', pay: '$pays', client: '$clients', product: '$products' }
+                        _id: { date: '$date', pay: '$pays.method', client: '$clients', product: '$products' },
+                        sales: {$sum: 1}
                     }
                 }
             ],
