@@ -83,8 +83,10 @@ CrudService.prototype.deleteProducts = function(id, data) {
 
 CrudService.prototype.updateProducts = function(id, data) {
     return new Promise((resolve) => {
+        console.log(data, id)
         this.model.update({ "_id": id }, { $push: data }, (err, result) => {
-            if (err) { return ({ err: err }) }
+            if (err) { console.log(err)
+                return ({ err: err }) }
             return this.model.findById(id).exec((err, result) => {
                 return resolve({ data: result })
             })
