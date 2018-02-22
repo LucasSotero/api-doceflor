@@ -8,13 +8,15 @@ let clientSchema = new mongoose.Schema({
     phone: [Number],
     address: String,
     complement: String,
-    credits: [
-        {
-            io: Boolean,
-            value: Number,
-            date: Date
+    complement: [{
+        io: Boolean,
+        value: Number,
+        date: {
+            type: Date,
+            default: Date.now,
+            required: true
         }
-    ]
+    }]
 })
 
 module.exports = mongoose.model('client', clientSchema)
