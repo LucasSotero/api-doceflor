@@ -8,7 +8,7 @@ let clientSchema = new mongoose.Schema({
     phone: [Number],
     address: String,
     complement: String,
-    complement: [{
+    credits: [{
         io: Boolean,
         value: Number,
         date: {

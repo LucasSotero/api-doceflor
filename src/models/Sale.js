@@ -1,7 +1,6 @@
 let mongoose = require('mongoose')
 
 let saleSchema = new mongoose.Schema({
-    code: String,
     discount: Number,
     date: {
         type: Date,
@@ -12,8 +11,10 @@ let saleSchema = new mongoose.Schema({
         ref: 'client'
     },
     products: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'product'
+        id: String,
+        name: String,
+        value: Number,
+        discount: Number
     }],
     pays: [{
         Date: {
@@ -23,7 +24,8 @@ let saleSchema = new mongoose.Schema({
         },
         code: String,
         confirmed: Boolean,
-        method: String
+        method: String,
+        value: String
     }]
 })
 

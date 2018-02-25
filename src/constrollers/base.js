@@ -11,6 +11,7 @@ function BaseController(model) {
     }
 
     this.post = (req, res) => {
+        console.log(req.body)
         this.service.insert(req.body)
             .then((result) => {
                 return res.json(result);
