@@ -9,7 +9,6 @@ let mongoose = require('mongoose')
         value: Number,
         history: [{
             io: Boolean,
-            amount: Number,
             value: Number,
             date: {
                 type: Date,

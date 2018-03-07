@@ -71,8 +71,17 @@ function BaseController(model) {
                 return res.status(404).json(err);
             })
     }
-    this.report = (req, res) => {
+    this.salereport = (req, res) => {
         this.service.saleReport(req.body)
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => {
+                return res.status(404).json(err);
+            })
+    }
+    this.productreport = (req, res) => {
+        this.service.ProductReport(req.body)
             .then((result) => {
                 return res.json(result);
             })

@@ -10,4 +10,5 @@ module.exports = function(app) {
     app.post('/products/details/:id', controller.postDetails)
     app.put('/products/details/:id', controller.putDetails)
     app.get('/products/details/:id', controller.getDetails)
+    app.post('/product/report', controller.productreport)
 }

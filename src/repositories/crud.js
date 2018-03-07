@@ -134,7 +134,6 @@ CrudService.prototype.delete = function(id) {
 //{ date: '$date', pay: '$pays', client: '$clients', product: '$products' }
 
 CrudService.prototype.saleReport = function(data) {
-    console.log(data)
     return new Promise((resolve) => {
         this.model.aggregate(
             [{
@@ -143,25 +142,41 @@ CrudService.prototype.saleReport = function(data) {
                             $gte: new Date(data.start),
                             $lt: new Date(data.end)
                         },
-                        'pays.method': { $eq: data.methods },
-                        client: { $eq: mongoose.Types.ObjectId(data.clients) },
-                        products: { $eq: mongoose.Types.ObjectId(data.products) }
+                        'pays.method': { $in: data.methods }
                     }
                 },
                 {
                     $group: {
-                        _id: { date: '$date', pay: '$pays.method', client: '$clients', product: '$products' },
+                        _id: { date: '$date', pay: '$pays.method' },
                         sales: {$sum: 1}
                     }
                 }
             ],
-            function(err, result) {
-                if (err) {
-                    return reject({ err: err })
-                }
-                return resolve({ data: result })
-            })
+        function(err, result) {if (err) {return reject({ err: err })}return resolve({ data: result })})
     })
 }
+CrudService.prototype.productReport = function(data) {
+    return new Promise((resolve) => {
+        this.model.aggregate(
+            [{
+                    $match: {
+                        name: { $eq: data.product },
+                        'history.data':{
+                            $gte: new Date(data.start),
+                            $lt: new Date(data.end)
+                        },
+                    }
+                },
+                {
+                    $group: {
+                        _id: { date: '$history.date', value: '$history.value', io: '$history.io'},
+                        sales: {$sum: 1}
+                    }
+                }
+            ],
+        function(err, result) {if (err) {return reject({ err: err })}return resolve({ data: result })})
+    })
+}
+
 
 module.exports = CrudService;
