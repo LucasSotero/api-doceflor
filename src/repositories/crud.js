@@ -146,13 +146,17 @@ CrudService.prototype.saleReport = function(data) {
                     }
                 },
                 {
+                    $unwind: '$pays' 
+                },
+                {
                     $group: {
-                        _id: { date: '$date', pay: '$pays.method' },
-                        sales: {$sum: 1}
+                        _id: '$pays.method',
+                        value: {$sum: '$pays.value'}
                     }
                 }
+
             ],
-        function(err, result) {if (err) {return reject({ err: err })}return resolve({ data: result })})
+        function(err, result) {if (err) {console.log(err); return reject({ err: err })}return resolve({ data: result })})
     })
 }
 CrudService.prototype.productReport = function(data) {

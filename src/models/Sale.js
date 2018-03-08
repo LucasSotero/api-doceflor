@@ -25,7 +25,7 @@ let saleSchema = new mongoose.Schema({
         code: String,
         confirmed: Boolean,
         method: String,
-        value: String
+        value: Number
     }]
 })
 
