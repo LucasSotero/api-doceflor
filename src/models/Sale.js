@@ -1,7 +1,8 @@
 let mongoose = require('mongoose')
+let product = mongoose.model('product')
+let client = mongoose.model('client')
 
 let saleSchema = new mongoose.Schema({
-    discount: Number,
     date: {
         type: Date,
         default: Date.now
@@ -11,22 +12,26 @@ let saleSchema = new mongoose.Schema({
         ref: 'client'
     },
     products: [{
-        id: String,
-        name: String,
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'product'
+        },
         value: Number,
         discount: Number
     }],
-    pays: [{
-        Date: {
+    pays: [
+        {
+          date: {
             type: Date,
             default: Date.now,
             require: true
-        },
-        code: String,
-        confirmed: Boolean,
-        method: String,
-        value: Number
-    }]
+          },
+          code: String,
+          confirmed: Boolean,
+          method: String,
+          value: Number
+        }
+    ]
 })
 
 module.exports = mongoose.model('sale', saleSchema)

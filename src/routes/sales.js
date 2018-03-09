@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.post('/sales/report', controller.salereport)
     app.post('/sales', controller.post)
     app.put('/sales/:id', controller.put)
-    app.get('/sales/:id', controller.view)
+    app.get('/sales/:id', controller.getSale)
     app.delete('/sales/:id', controller.delete)
     app.get('/sales/search/:search', controller.getAll)
         // app.get('/sales/products/:id', controller.stock)
