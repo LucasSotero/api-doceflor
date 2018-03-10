@@ -1,7 +1,7 @@
 module.exports = function(app) {
     let controller = require('../constrollers/sales')()
 
-    app.get('/sales', controller.list)
+    app.get('/sales', controller.getAllSale)
     app.post('/sales/report', controller.salereport)
     app.post('/sales', controller.post)
     app.put('/sales/:id', controller.put)

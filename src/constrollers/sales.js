@@ -12,5 +12,13 @@ module.exports = function () {
             })
         })
     }
+    controller.getAllSale = (req, res) => {
+        return new Promise((resolve) => {
+            model.find({}).populate('client').exec((err, result) => {
+                if (err) { return res.status(404).json({ err: err }) }
+                return res.json({ data: result })
+            })
+        })
+    }
     return controller
 }
