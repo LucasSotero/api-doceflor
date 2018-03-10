@@ -9,8 +9,8 @@ module.exports = function () {
             model.findById(req.params.id).populate(['client', 'products._id']).exec((err, result) => {
                     if (err) { return res.status(404).json({ err: err }) }
                     return res.json({ data: result })
-                })
             })
-        }
+        })
+    }
     return controller
 }
