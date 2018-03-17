@@ -20,5 +20,20 @@ module.exports = function () {
             })
         })
     }
+
+    controller.insert = (req, res) => {
+    let data = req.body
+    return new Promise((resolve) => {
+      model.count().then(resu => {
+        data.code = resu
+        model.create(data, (err, result) => {
+            if (err) {return res.status(404).json({ err: err }) }
+            return model.find({}).exec((err, result) => {
+                return res.json({ data: result })
+            })
+        })
+      })
+    })
+}
     return controller
 }

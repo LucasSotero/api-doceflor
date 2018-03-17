@@ -3,6 +3,7 @@ let product = mongoose.model('product')
 let client = mongoose.model('client')
 
 let saleSchema = new mongoose.Schema({
+    code: Number,
     date: {
         type: Date,
         default: Date.now
